@@ -36,6 +36,7 @@ jobs:
         pip install buildozer cython
 
     - name: Build APK
+      working-directory: supercalc_mobile
       run: |
         buildozer android debug
 
@@ -43,4 +44,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: apk-file
-        path: bin/*.apk
+        path: supercalc_mobile/bin/*.apk
