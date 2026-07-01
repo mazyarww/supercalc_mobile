@@ -1,0 +1,8 @@
+kivy==2.3.0
+kivymd==1.2.0
+sympy>=1.14
+mpmath>=1.3
+numpy>=2.0
+arabic-reshaper>=3.0
+python-bidi>=0.4
+buildozer>=1.5   # only needed to build the Android APK, not to run locally

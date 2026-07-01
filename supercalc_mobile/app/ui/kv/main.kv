@@ -1,0 +1,81 @@
+#:import dp kivy.metrics.dp
+
+<CalcKeyButton@MDRaisedButton>:
+    font_size: "20sp"
+    size_hint_y: None
+    height: dp(56)
+    elevation: 0
+    md_bg_color: app.theme_cls.bg_light if self.text not in ("=", "C", "DEL") else app.theme_cls.primary_color
+
+<CalculatorScreen>:
+    name: "calculator"
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(12)
+        spacing: dp(10)
+
+        MDCard:
+            size_hint_y: 0.28
+            padding: dp(16)
+            radius: [18, 18, 18, 18]
+            orientation: "vertical"
+            MDLabel:
+                id: expr_label
+                text: ""
+                font_size: "16sp"
+                halign: "right"
+                theme_text_color: "Secondary"
+            MDLabel:
+                id: result_label
+                text: "0"
+                font_size: "34sp"
+                halign: "right"
+                shorten: True
+
+        MDGridLayout:
+            id: keypad
+            cols: 4
+            spacing: dp(8)
+            size_hint_y: 0.62
+            # Buttons are added programmatically in Python (see
+            # CalculatorScreen.build_keypad) so the same layout can be
+            # regenerated for scientific / basic modes without duplicating KV.
+
+        MDBoxLayout:
+            size_hint_y: 0.10
+            spacing: dp(8)
+            MDIconButton:
+                icon: "camera"
+                on_release: app.on_scan_pressed()
+            MDIconButton:
+                icon: "microphone"
+                on_release: app.on_voice_pressed()
+            Widget:
+            MDIconButton:
+                icon: "content-copy"
+                on_release: app.on_copy_result()
+
+
+<HistoryScreen>:
+    name: "history"
+    MDBoxLayout:
+        orientation: "vertical"
+        MDTopAppBar:
+            id: history_bar
+            title: ""
+            right_action_items: [["delete-sweep", lambda x: root.clear_history()]]
+        ScrollView:
+            MDList:
+                id: history_list
+
+
+<SettingsScreen>:
+    name: "settings"
+    MDBoxLayout:
+        orientation: "vertical"
+        MDTopAppBar:
+            id: settings_bar
+            title: ""
+        ScrollView:
+            MDList:
+                id: settings_list
